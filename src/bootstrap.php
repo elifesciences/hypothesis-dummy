@@ -11,7 +11,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 $app = new Application();
 $app->register(new PingControllerProvider());
 
-
 $app->post('/users', function (Request $request) {
     $body = json_decode($request->getContent(), true);
 
