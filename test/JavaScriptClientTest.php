@@ -12,7 +12,7 @@ final class UsersTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_provides_a_record_for_the_user()
+    public function it_provides_a_list_of_urls_to_call()
     {
         $response = $this->getApp()->handle(Request::create(
             '/',
@@ -42,5 +42,21 @@ final class UsersTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('read', $body['links']['profile']);
         $this->assertArrayHasKey('url', $body['links']['profile']['read']);
         $this->assertEquals('https://demo--hypothesis-dummy.elifesciences.org/profile', $body['links']['profile']['read']['url']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_a_list_of_links_for_the_user()
+    {
+        $response = $this->getApp()->handle(Request::create('/links'));
+
+        $this->assertSame(
+            200,
+            $response->getStatusCode(),
+            var_export($response->getContent(), true)
+        );
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('account.settings', $body);
     }
 }

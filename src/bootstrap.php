@@ -4,6 +4,7 @@ use eLife\Ping\Silex\PingControllerProvider;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -38,14 +39,14 @@ $body = array (
       ),
       'update' => 
       array (
-        'url' => 'https://hypothes.is/api/profile',
+        'url' => $base.'/profile',
         'method' => 'PATCH',
         'desc' => 'Update a user\'s preferences',
       ),
     ),
     'search' => 
     array (
-      'url' => 'https://hypothes.is/api/search',
+      'url' => $base.'/search',
       'method' => 'GET',
       'desc' => 'Search for annotations',
     ),
@@ -55,7 +56,7 @@ $body = array (
       array (
         'delete' => 
         array (
-          'url' => 'https://hypothes.is/api/groups/:pubid/members/:user',
+          'url' => $base.'/groups/:pubid/members/:user',
           'method' => 'DELETE',
           'desc' => 'Remove the current user from a group.',
         ),
@@ -65,56 +66,62 @@ $body = array (
     array (
       'hide' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations/:id/hide',
+        'url' => $base.'/annotations/:id/hide',
         'method' => 'PUT',
         'desc' => 'Hide an annotation as a group moderator.',
       ),
       'unhide' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations/:id/hide',
+        'url' => $base.'/annotations/:id/hide',
         'method' => 'DELETE',
         'desc' => 'Unhide an annotation as a group moderator.',
       ),
       'read' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations/:id',
+        'url' => $base.'/annotations/:id',
         'method' => 'GET',
         'desc' => 'Fetch an annotation',
       ),
       'create' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations',
+        'url' => $base.'/annotations',
         'method' => 'POST',
         'desc' => 'Create an annotation',
       ),
       'update' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations/:id',
+        'url' => $base.'/annotations/:id',
         'method' => 'PATCH',
         'desc' => 'Update an annotation',
       ),
       'flag' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations/:id/flag',
+        'url' => $base.'/annotations/:id/flag',
         'method' => 'PUT',
         'desc' => 'Flag an annotation for review.',
       ),
       'delete' => 
       array (
-        'url' => 'https://hypothes.is/api/annotations/:id',
+        'url' => $base.'/annotations/:id',
         'method' => 'DELETE',
         'desc' => 'Delete an annotation',
       ),
     ),
     'links' => 
     array (
-      'url' => 'https://hypothes.is/api/links',
+      'url' => $base.'/links',
       'method' => 'GET',
       'desc' => 'URL templates for generating URLs for HTML pages',
     ),
   ),
 );
     return new JsonResponse($body);
+});
+
+$app->get('/links', function (Request $request) {
+    // hardcoded for the moment
+    $body = '{"account.settings": "https://hypothes.is/account/settings", "forgot-password": "https://hypothes.is/forgot-password", "groups.new": "https://hypothes.is/groups/new", "help": "https://hypothes.is/docs/help", "oauth.authorize": "https://hypothes.is/oauth/authorize", "oauth.revoke": "https://hypothes.is/oauth/revoke", "search.tag": "https://hypothes.is/search?q=tag:\":tag\"", "signup": "https://hypothes.is/signup", "user": "https://hypothes.is/u/:user"}';
+    return new Response($body);
 });
 
 // TODO: is there anything available from an elife library?
