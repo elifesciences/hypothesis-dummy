@@ -124,6 +124,31 @@ $app->get('/links', function (Request $request) {
     return new Response($body);
 });
 
+$app->post('/token', function (Request $request) {
+    $body = '{"access_token": "5768-ABCDEFGHIJ-123456789102_1111111111111111111", "token_type": "Bearer", "expires_in": 3600.0, "refresh_token": "1234-AAAAAA_A_1111111111111111111111111111111111"}';
+    return new Response($body);
+});
+
+$app->get('/profile', function (Request $request) {
+    $body = '{"user_info": {"display_name": "Giorgio Sironi"}, "preferences": {}, "groups": [{"public": true, "name": "eLIFE", "id": "imRGyeeV"}], "userid": "acct:m8nl1gze@elifesciences.org", "authority": "elifesciences.org", "features": {"api_render_user_info": true, "filter_highlights": false, "overlay_highlighter": false, "embed_cachebuster": false, "client_display_names": false}}';
+    return new Response($body);
+});
+
+$app->get('/search', function (Request $request) {
+    $body = '{"rows": [], "total": 0, "replies": []}';
+    return new Response($body);
+});
+
+$app->post('/annotations', function (Request $request) {
+    $body = '{"updated": "2017-12-07T14:34:41.949708+00:00", "group": "imRGyeeV", "target": [{"source": "https://elifesciences.org/articles/32493", "selector": [{"conformsTo": "https://tools.ietf.org/html/rfc3236", "type": "FragmentSelector", "value": "s1"}, {"type": "RangeSelector", "startContainer": "/div[1]/div[2]/main[1]/div[3]/div[1]/div[1]/div[2]/section[2]/div[1]/p[5]", "endContainer": "/div[1]/div[2]/main[1]/div[3]/div[1]/div[1]/div[2]/section[2]/div[1]/p[5]", "startOffset": 571, "endOffset": 577}, {"start": 12301, "end": 12307, "type": "TextPositionSelector"}, {"type": "TextQuoteSelector", "prefix": " 2007; Rigort et al., 2012). We ", "exact": "imaged", "suffix": " Golgi stacks within the native "}]}], "links": {"json": "https://hypothes.is/api/annotations/w02dfNtbEeeShxcmUm1Vzg", "html": "https://hypothes.is/a/w02dfNtbEeeShxcmUm1Vzg", "incontext": "https://hyp.is/w02dfNtbEeeShxcmUm1Vzg/elifesciences.org/articles/32493"}, "tags": [], "text": "took image of", "created": "2017-12-07T14:34:41.949708+00:00", "uri": "https://elifesciences.org/articles/32493", "flagged": false, "user_info": {"display_name": "Giorgio Sironi"}, "user": "acct:m8nl1gze@elifesciences.org", "hidden": false, "document": {"title": ["The structure of the COPI coat determined within the cell"]}, "id": "w02dfNtbEeeShxcmUm1Vzg", "permissions": {"read": ["acct:m8nl1gze@elifesciences.org"], "admin": ["acct:m8nl1gze@elifesciences.org"], "update": ["acct:m8nl1gze@elifesciences.org"], "delete": ["acct:m8nl1gze@elifesciences.org"]}}';
+    return new Response($body);
+});
+
+
+$app->get('/hypothesis', function (Request $request) {
+    return new Response(file_get_contents(__DIR__.'/../hypothesis.js'));
+});
+
 // TODO: is there anything available from an elife library?
 $app->error(function (Throwable $e) {
     if ($e instanceof HttpExceptionInterface) {

@@ -59,4 +59,20 @@ final class UsersTest extends PHPUnit_Framework_TestCase
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('account.settings', $body);
     }
+
+    /**
+     * @test
+     */
+    public function it_provides_a_fake_token_to_anyone()
+    {
+        $response = $this->getApp()->handle(Request::create('/token'));
+        // TODO: reduce duplication of assertions
+        $this->assertSame(
+            200,
+            $response->getStatusCode(),
+            var_export($response->getContent(), true)
+        );
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('access_token', $body);
+    }
 }
