@@ -22,6 +22,15 @@ $app->post('/users', function (Request $request) {
     ));
 });
 
+$app->post('/token', function (Request $request) {
+    return new JsonResponse([
+        'access_token' => 'access_token_generated',
+        'token_type' => 'Bearer',
+        'expires_in' => 3600.0,
+        'refresh_token' => 'refresh_token_generated',
+    ]);
+});
+
 $app->get('/search', function (Request $request) {
     return new JsonResponse([
         'total' => 2,
