@@ -34,6 +34,7 @@ final class SearchTest extends PHPUnit_Framework_TestCase
         );
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('total', $body);
+        $this->assertEquals(2, $body['total']);
         $this->assertArrayHasKey('rows', $body);
         $this->assertCount(2, $body['rows']);
         foreach ($body['rows'] as $row) {
@@ -53,5 +54,39 @@ final class SearchTest extends PHPUnit_Framework_TestCase
             $this->assertArrayHasKey('read', $row['permissions']);
             $this->assertInternalType('array', $row['permissions']['read']);
         }
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_some_restricted_annotations_to_requests_bringing_a_token()
+    {
+        $response = $this->getApp()->handle(Request::create(
+            '/search',
+            'GET',
+            [
+                'user' => 'jcarberry',
+                'group' => '',
+                'offset' => 0,
+                'limit' => 20,
+                'order' => 'desc',
+                'sort' => 'updated',
+            ],
+            [],
+            [],
+            [
+                'HTTP_AUTHORIZATION' => 'Bearer 12345',
+            ]
+        ));
+
+        $this->assertSame(
+            200,
+            $response->getStatusCode(),
+            var_export($response->getContent(), true)
+        );
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('total', $body);
+        $this->assertEquals(3, $body['total']);
+        $this->assertCount(3, $body['rows']);
     }
 }
