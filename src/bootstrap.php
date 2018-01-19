@@ -150,71 +150,71 @@ $app->get('/search', function (Request $request) {
         ],
     ];
 
-	if ($request->headers->get('Authorization')) {
-		$rows[] = [
-			'permissions' => [
-				'delete' => [
-					'acct:imitlks8@elifesciences.org'
-				],
-				'update' => [
-					'acct:imitlks8@elifesciences.org'
-				],
-				'admin' => [
-					'acct:imitlks8@elifesciences.org'
-				],
-				'read' => [
-					'group:__world__'
-				]
-			],
-			'id' => '4eJEnNXwEee-anvHeyu2NQ',
-			'document' => [
-				'title' => [
-					'The running costs of eLife 2.0'
-				]
-			],
-			'hidden' => false,
-			'user' => 'acct:imitlks8@elifesciences.org',
-			'user_info' => [
-				'display_name' => 'Paul Shannon'
-			],
-			'flagged' => false,
-			'updated' => '2017-12-05T12:13:36.283133+00:00',
-			'group' => 'imRGyeeV',
-			'target' => [
-				[
-					'selector' => [
-						[
-							'endOffset' => 211,
-							'startOffset' => 0,
-							'type' => 'RangeSelector',
-							'startContainer' => '/div[1]/div[2]/main[1]/div[3]/div[1]/div[1]/section[12]/div[1]/p[2]',
-							'endContainer' => '/div[1]/div[2]/main[1]/div[3]/div[1]/div[1]/section[12]/div[1]/p[2]'
-						],
-						[
-							'start' => 20345,
-							'end' => 20556,
-							'type' => 'TextPositionSelector'
-						],
-						[
-							'suffix' => ' Unfortunately, you have to add ',
-							'type' => 'TextQuoteSelector',
-							'prefix' => 't => p.shannon@elifesciences.org.\n',
-							'exact' => 'We’ll endeavour to make our data more accurate and timely by utilising cost tagging in AWS, so that we can expose figures directly from AWS Cost Explorer for those interested in future running costs as we scale.'
-						]
-					],
-					'source' => 'https://elifesciences.org/labs/85a7155a/the-running-costs-of-elife-2-0'
-				]
-			],
-			'links' => [
-				'incontext' => 'https://hyp.is/4eJEnNXwEee-anvHeyu2NQ/elifesciences.org/labs/85a7155a/the-running-costs-of-elife-2-0',
-				'json' => 'https://hypothes.is/api/annotations/4eJEnNXwEee-anvHeyu2NQ'
-			],
-			'tags' => [],
-			'text' => 'As mentioned in this post, we wanted to look at ways to easily tag the cost data in AWS so that we could provide simple updates on changing costs.\n\nHelpfully we found that amending the tagging in the deployment scripts means you can port across these to the Cost Explorer. The result is that tagged costs are available for anyone using Continuum too, and I can produce graphs like this for November\'s data:\n\n![November AWS Costs for eLife 2.0](https://imgur.com/download/tiHtmGc)\n\n[Full image link](https://photos.app.goo.gl/t7ZzLE0uNNbdSwur1)\n\nYou can see that the cost per month for Computing (on demand), Database and Storage as shown here is $900 which is similar to previous months.',
-			'created' => '2017-11-30T17:07:01.575981+00:00',
-			'uri' => 'https://elifesciences.org/labs/85a7155a/the-running-costs-of-elife-2-0'
-		];
-	}
+    if ($request->headers->get('Authorization')) {
+        $rows[] = [
+            'permissions' => [
+                'delete' => [
+                    'acct:imitlks8@elifesciences.org',
+                ],
+                'update' => [
+                    'acct:imitlks8@elifesciences.org',
+                ],
+                'admin' => [
+                    'acct:imitlks8@elifesciences.org',
+                ],
+                'read' => [
+                    'group:__world__',
+                ],
+            ],
+            'id' => '4eJEnNXwEee-anvHeyu2NQ',
+            'document' => [
+                'title' => [
+                    'The running costs of eLife 2.0',
+                ],
+            ],
+            'hidden' => false,
+            'user' => 'acct:imitlks8@elifesciences.org',
+            'user_info' => [
+                'display_name' => 'Paul Shannon',
+            ],
+            'flagged' => false,
+            'updated' => '2017-12-05T12:13:36.283133+00:00',
+            'group' => 'imRGyeeV',
+            'target' => [
+                [
+                    'selector' => [
+                        [
+                            'endOffset' => 211,
+                            'startOffset' => 0,
+                            'type' => 'RangeSelector',
+                            'startContainer' => '/div[1]/div[2]/main[1]/div[3]/div[1]/div[1]/section[12]/div[1]/p[2]',
+                            'endContainer' => '/div[1]/div[2]/main[1]/div[3]/div[1]/div[1]/section[12]/div[1]/p[2]',
+                        ],
+                        [
+                            'start' => 20345,
+                            'end' => 20556,
+                            'type' => 'TextPositionSelector',
+                        ],
+                        [
+                            'suffix' => ' Unfortunately, you have to add ',
+                            'type' => 'TextQuoteSelector',
+                            'prefix' => 't => p.shannon@elifesciences.org.\n',
+                            'exact' => 'We’ll endeavour to make our data more accurate and timely by utilising cost tagging in AWS, so that we can expose figures directly from AWS Cost Explorer for those interested in future running costs as we scale.',
+                        ],
+                    ],
+                    'source' => 'https://elifesciences.org/labs/85a7155a/the-running-costs-of-elife-2-0',
+                ],
+            ],
+            'links' => [
+                'incontext' => 'https://hyp.is/4eJEnNXwEee-anvHeyu2NQ/elifesciences.org/labs/85a7155a/the-running-costs-of-elife-2-0',
+                'json' => 'https://hypothes.is/api/annotations/4eJEnNXwEee-anvHeyu2NQ',
+            ],
+            'tags' => [],
+            'text' => 'As mentioned in this post, we wanted to look at ways to easily tag the cost data in AWS so that we could provide simple updates on changing costs.\n\nHelpfully we found that amending the tagging in the deployment scripts means you can port across these to the Cost Explorer. The result is that tagged costs are available for anyone using Continuum too, and I can produce graphs like this for November\'s data:\n\n![November AWS Costs for eLife 2.0](https://imgur.com/download/tiHtmGc)\n\n[Full image link](https://photos.app.goo.gl/t7ZzLE0uNNbdSwur1)\n\nYou can see that the cost per month for Computing (on demand), Database and Storage as shown here is $900 which is similar to previous months.',
+            'created' => '2017-11-30T17:07:01.575981+00:00',
+            'uri' => 'https://elifesciences.org/labs/85a7155a/the-running-costs-of-elife-2-0',
+        ];
+    }
 
     return new JsonResponse([
         'total' => count($rows),
