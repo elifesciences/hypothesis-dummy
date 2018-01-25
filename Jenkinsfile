@@ -14,7 +14,8 @@ elifeLibrary {
     stage 'Project tests', {
         // TODO: steps to be extracted in elife-jenkins-workflow-libs
         sh "docker build -f Dockerfile.ci -t elifesciences/hypothesis-dummy:${commit} --build-arg commit=${commit} ."
-        sh "docker run elifesciences/hypothesis-dummy_ci:${commit}"
+        sh "chmod 777 build/ && docker run -v \$(pwd)/build:/srv/hypothesis-dummy/build elifesciences/hypothesis-dummy_ci:${commit}"
+        step([$class: "JUnitResultArchiver", testResults: 'build/phpunit.xml'])
     }
 
     elifeMainlineOnly {
