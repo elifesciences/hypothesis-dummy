@@ -12,7 +12,7 @@ ENV PATH="/var/www/.composer/vendor/bin:${PATH}"
 
 USER elife
 RUN composer install
-COPY .php_cs project_tests.sh smoke_tests.sh /srv/hypothesis-dummy/
-USER www-data
+COPY --chown=elife .php_cs project_tests.sh smoke_tests.sh /srv/hypothesis-dummy/
 
+USER www-data
 CMD ["/bin/bash", "project_tests.sh"]
