@@ -1,0 +1,17 @@
+ARG commit=latest
+FROM elifesciences/proofreader-php:latest AS proofreader
+FROM elifesciences/hypothesis-dummy:${commit}
+
+# extract into another image and put here with multi-stage build
+USER root
+RUN git clone https://github.com/asm89/smoke.sh /opt/smoke.sh
+
+USER elife
+COPY --from=proofreader --chown=elife:elife /srv/proofreader-php /srv/proofreader-php
+RUN ln -s /srv/proofreader-php/bin/proofreader /srv/bin/proofreader
+
+RUN composer install
+COPY --chown=elife .php_cs project_tests.sh smoke_tests.sh /srv/hypothesis-dummy/
+
+USER www-data
+CMD ["/bin/bash", "project_tests.sh"]
