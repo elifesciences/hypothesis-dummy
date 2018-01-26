@@ -1,9 +1,7 @@
 FROM elifesciences/php_cli
 
-USER root
-RUN mkdir /srv/hypothesis-dummy && chown elife:elife /srv/hypothesis-dummy
-
 USER elife
+RUN mkdir /srv/hypothesis-dummy
 WORKDIR /srv/hypothesis-dummy
 COPY composer.json composer.lock /srv/hypothesis-dummy/
 RUN composer install --classmap-authoritative --no-dev
