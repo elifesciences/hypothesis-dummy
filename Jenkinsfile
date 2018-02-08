@@ -13,9 +13,7 @@ elifeLibrary {
 
     stage 'Project tests', {
         dockerBuildCi 'hypothesis-dummy', commit
-        // TODO: if we could use $PROJECT_FOLDER provided by the image,
-        // we may avoid passing `folder`?
-        dockerProjectTests 'hypothesis-dummy', commit, '/srv/hypothesis-dummy'
+        dockerProjectTests 'hypothesis-dummy', commit
     }
 
     elifeMainlineOnly {
