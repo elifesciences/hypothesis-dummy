@@ -1,11 +1,12 @@
 FROM elifesciences/php_cli
 
 USER elife
-RUN mkdir /srv/hypothesis-dummy
-WORKDIR /srv/hypothesis-dummy
-COPY --chown=elife:elife composer.json composer.lock /srv/hypothesis-dummy/
+ENV PROJECT_FOLDER=/srv/hypothesis-dummy
+RUN mkdir ${PROJECT_FOLDER}
+WORKDIR ${PROJECT_FOLDER}
+COPY --chown=elife:elife composer.json composer.lock ${PROJECT_FOLDER}/
 RUN composer install --classmap-authoritative --no-dev
-COPY --chown=elife:elife . /srv/hypothesis-dummy/
+COPY --chown=elife:elife . ${PROJECT_FOLDER}/
 
 USER www-data
 EXPOSE 8080
