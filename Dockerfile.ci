@@ -3,7 +3,7 @@ FROM elifesciences/proofreader-php:latest AS proofreader
 FROM elifesciences/hypothesis-dummy:${commit}
 ENV DEBUG=1
 
-# extract into another image and put here with multi-stage build
+# TODO: extract into a base image, but smoke tests should be in the prod image
 USER root
 RUN git clone https://github.com/asm89/smoke.sh /opt/smoke.sh
 
@@ -15,6 +15,7 @@ RUN composer-install
 COPY --chown=elife test/ ${PROJECT_FOLDER}/test
 COPY --chown=elife .php_cs project_tests.sh phpunit.xml.dist smoke_tests.sh ${PROJECT_FOLDER}/
 RUN composer-post
+# TODO: extract into base image
 RUN mkdir build/
 USER root
 RUN chown www-data:www-data build/
