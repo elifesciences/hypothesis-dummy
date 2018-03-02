@@ -1,4 +1,4 @@
-FROM elifesciences/php_cli
+FROM elifesciences/php_cli:22434ef5bda09326d4c9347de7d8c2f1610a0b83
 
 USER elife
 ENV PROJECT_FOLDER=/srv/hypothesis-dummy
