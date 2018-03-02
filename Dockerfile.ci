@@ -13,5 +13,8 @@ RUN ln -s /srv/proofreader-php/bin/proofreader /srv/bin/proofreader
 RUN composer install
 COPY --chown=elife .php_cs project_tests.sh smoke_tests.sh ${PROJECT_FOLDER}/
 
+USER root
+RUN create-build-folder
+
 USER www-data
 CMD ["/bin/bash", "project_tests.sh"]
