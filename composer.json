@@ -26,6 +26,9 @@
         "zendframework/zend-diactoros": "^1.3"
     },
     "config": {
+        "platform": {
+            "php": "7.0.29"
+        },
         "sort-packages": true
     }
 }

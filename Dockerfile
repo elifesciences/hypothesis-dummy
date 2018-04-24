@@ -1,14 +1,16 @@
-FROM elifesciences/php_cli:22434ef5bda09326d4c9347de7d8c2f1610a0b83
+ARG image_tag=latest
+FROM elifesciences/hypothesis-dummy_composer:${image_tag} AS build
+FROM elifesciences/php_7.0_cli:656bb4bdf1e49a5e80337e2a7c4f44f10c3f52b0
 
 USER elife
 ENV PROJECT_FOLDER=/srv/hypothesis-dummy
 RUN mkdir ${PROJECT_FOLDER}
 WORKDIR ${PROJECT_FOLDER}
-COPY --chown=elife:elife composer.json composer.lock ${PROJECT_FOLDER}/
-RUN composer-install
-COPY --chown=elife:elife src/ ${PROJECT_FOLDER}/src
-COPY --chown=elife:elife web/ ${PROJECT_FOLDER}/web
-RUN composer-post
+
+COPY --chown=elife:elife smoke_tests.sh ./
+COPY --chown=elife:elife web/ web/
+COPY --from=build --chown=elife:elife /app/vendor/ vendor/
+COPY --chown=elife:elife src/ src/
 
 USER www-data
 EXPOSE 8080

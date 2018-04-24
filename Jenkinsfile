@@ -7,13 +7,18 @@ elifeLibrary {
 
     def image
     stage 'Build image', {
-        dockerBuild 'hypothesis-dummy', commit
+        sh "IMAGE_TAG=${commit} docker-compose -f docker-compose.yml -f docker-compose.ci.yml build"
         image = DockerImage.elifesciences(this, 'hypothesis-dummy', commit)
     }
 
     stage 'Project tests', {
-        dockerBuildCi 'hypothesis-dummy', commit
         dockerProjectTests 'hypothesis-dummy', commit
+        try {
+            sh "IMAGE_TAG=${commit} docker-compose -f docker-compose.yml -f docker-compose.ci.yml up -d"
+            sh "IMAGE_TAG=${commit} docker-compose -f docker-compose.yml -f docker-compose.ci.yml exec -T cli ./smoke_tests.sh"
+        } finally {
+            sh 'docker-compose -f docker-compose.yml -f docker-compose.ci.yml down'
+        }
     }
 
     elifeMainlineOnly {

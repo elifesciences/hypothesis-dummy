@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    composer:
+        volumes:
+            - ./composer.json:/app/composer.json
+            - ./composer.lock:/app/composer.lock
+            - vendor:/app/vendor
+    cli:
+        volumes:
+            - ./:/srv/hypothesis-dummy
+            - /srv/hypothesis-dummy/build
+            - vendor:/srv/hypothesis-dummy/vendor
+
+volumes:
+    vendor:
